@@ -23,7 +23,7 @@ def yolo_detect(model, frame, conf=0.35):
     { "name": str, "conf": float, "box": (l,t,r,b) }
     """
     # YOLO accepts RGB or BGR; we pass it directly.
-    results = model(frame, imgsz=640, conf=conf)[0]
+    results = model(frame, imgsz=640, conf=conf, verbose=False)[0]
 
     detections = []
     for box, cls, score in zip(results.boxes.xyxy.cpu().numpy(),

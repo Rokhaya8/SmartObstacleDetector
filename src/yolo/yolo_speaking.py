@@ -1,6 +1,7 @@
 # src/yolo/yolo_speaking.py
 import sys
 import os
+import queue
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
 from src.yolo.yolo_utils import load_yolo, yolo_detect
@@ -10,25 +11,35 @@ import os
 import sys
 import time
 import threading
-speak_lock = threading.Lock()
 
 
 # ===============================
-#  Synthèse vocale
+#  Synthèse vocale (un seul fil dédié)
 # ===============================
-engine = pyttsx3.init()
-engine.setProperty("rate", 170)
-engine.setProperty("volume", 1.0)
+voice_queue = queue.Queue(maxsize=1)
 
-def speak(text):
-    with speak_lock:  # ⬅️ empêche plusieurs voix en même temps
+def voice_worker():
+    while True:
+        text = voice_queue.get()
         print("🗣️", text)
+        # Un moteur neuf pour chaque phrase (contourne le bug de pyttsx3 sous Windows)
+        engine = pyttsx3.init()
+        engine.setProperty("rate", 170)
+        engine.setProperty("volume", 1.0)
         engine.say(text)
         engine.runAndWait()
+        engine.stop()
+        del engine
 
+threading.Thread(target=voice_worker, daemon=True).start()
 
 def speak_async(text):
-    threading.Thread(target=speak, args=(text,), daemon=True).start()
+    # On ne garde que le message le plus récent
+    try:
+        voice_queue.get_nowait()
+    except queue.Empty:
+        pass
+    voice_queue.put_nowait(text)
 
 # ===============================
 #  Base de données des tailles réelles

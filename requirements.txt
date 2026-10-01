@@ -1,20 +1,22 @@
 # ======================
-# Core Dependencies
+# Détection (YOLOv8 / YOLO11)
 # ======================
-tensorflow==2.20.0
-numpy>=2.0.0
-protobuf>=5.28.0
-
-Pillow
-matplotlib
+ultralytics
 opencv-python
+numpy
 
 # ======================
-# Speech (text-to-speech)
+# Synthèse vocale (hors-ligne)
 # ======================
 pyttsx3
 
 # ======================
-# Optional (used in notebooks)
+# Interface web (serveur local)
 # ======================
-jupyter
+flask
+flask-cors
+
+# ======================
+# Optionnel : prototype SSD MobileNet uniquement
+# ======================
+# tensorflow==2.20.0

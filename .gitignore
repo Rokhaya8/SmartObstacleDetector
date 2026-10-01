@@ -1,20 +1,24 @@
-# Python
+# Environnements virtuels
 venv/
+.venv/
+env/
+blindenv/
+
+# Python
 __pycache__/
 *.pyc
 
-# MacOS
+# Systèmes / éditeurs
 .DS_Store
+.vscode/
+.idea/
 
-# Model Exports (if generated)
+# Exports de modèles
 *.tflite
 
-# Videos / screenshots
+# Vidéos et captures de test (sauf celles du dossier assets/)
 *.avi
 *.mp4
 *.jpg
 *.png
-
-# IDE
-.vscode/
-.idea/
+!assets/**

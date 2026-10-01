@@ -2,11 +2,18 @@ from flask import Flask, request
 from flask_cors import CORS
 import subprocess
 import threading
+import sys
 
-app = Flask(__name__)
+# Le dossier "interface" est servi directement par Flask
+app = Flask(__name__, static_folder="interface", static_url_path="")
+
 CORS(app)
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")
 
-PYTHON_PATH = r"C:\Users\Lenovo\Desktop\Python IA\SmartObstacleDetecto\blindenv\Scripts\python.exe"
+
+PYTHON_PATH = sys.executable  # le Python qui lance le serveur (celui du .venv)
 
 process = None
 process_lock = threading.Lock()
