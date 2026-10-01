@@ -139,7 +139,7 @@ Rokhaya.
   directly from Flask, and completed the dependency list.
 
 The SSD MobileNet prototype builds on
-[REAL_TIME_OBJECT_DETECTION](https://github.com/beingaryan/REAL_TIME_OBJECT_DETECTION)
+[Blind-Assistance-Object-Detection-and-Navigation](https://github.com/beingaryan/Blind-Assistance-Object-Detection-and-Navigation)
 by Aryan Gupta, whose commit history is preserved in this repository.
 
 ## Limitations
